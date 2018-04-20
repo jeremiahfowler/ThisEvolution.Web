@@ -8,6 +8,8 @@ var app = {
 
         console.log('init');
 
+		ui.buildNav();
+		
         $('.div-trinity div div').click(function () {
             app.divCollapseAll(this);
 			app.toggleAssociated(this, 'data-key');
@@ -138,6 +140,41 @@ var app = {
 }
 
 
+var ui = {
+	
+	arrNav : [
+		{ name : "Home",	url: "index.html" },
+		{ name : "World",	url: "world.html" },
+		{ name : "Races",	url: "race.html" },
+		{ name : "Classes",	url: "class.html" }
+	],
+	
+	buildNav : function () {
+	
+	console.log('build nav');
+	/*
+		var divMain = $('<div>')	.attr('id', 'nav')
+									.addClass('app-nav');
+	*/
+		var divNav = $('#nav')
+		for( var i = 0; i < ui.arrNav.length; i++ ) {
+			
+			var div = $('<div>').addClass('app-nav-link');
+			var a = $('<a>')	.attr( 'href', ui.arrNav[i].url )
+								.html( ui.arrNav[i].name );
+
+			if (window.location.href.indexOf(ui.arrNav[i].url) > -1) {
+				$(a).addClass('selected');
+			}
+								
+			$(div).append(a);
+			$(divNav).append(div);
+		}
+		
+		return divNav;
+	}
+	
+}
 
 
 $(document).ready(function () {

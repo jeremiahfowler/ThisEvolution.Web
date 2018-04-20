@@ -68,7 +68,7 @@
 }	
 
 	.div-trinity div {
-		padding: 4px;
+		
 	}
 
 		.div-trinity div div {
@@ -79,6 +79,8 @@
 			font-size: large;
 			font-weight: bold;
 			cursor: pointer;
+			border-top: 4px solid black;
+			border-bottom: 4px solid black;
 		}
 	
 .table-trinity {
