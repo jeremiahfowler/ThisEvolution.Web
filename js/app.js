@@ -2,20 +2,52 @@
 
 var app = {
 
-	arrUIEffects: [],
+	arrInit: [],		// array of objects to cycle through on initialization
+	arrFinish: [],		// array of objects to cycle through after initialization
 
     init: function () {
 
+		// run anything in the Init array
+		for( var i = 0; i < app.arrInit.length; i++ ) {
+			app.arrInit[i].init();
+		}
+	
         console.log('init');
 
 		ui.buildNav();
 		
-        $('.div-trinity div div').click(function () {
+        $('.div-trinity').on( "click", "div div", function () {
             app.divCollapseAll(this);
 			app.toggleAssociated(this, 'data-key');
         });
+		
+		app.finish();
     },
 
+	finish: function () {
+		
+		// run anything in the finish array
+		for( var i = 0; i < app.arrFinish.length; i++ ) {
+			app.arrInit[i].finish();
+		}
+		
+		// for slide-on-load - hide the children, then slide them down
+		$('.slide-on-load')
+			.children()
+			.hide(0);
+
+		$('.slide-on-load').show().children().slideDown("slow");
+	
+	},
+	
+	getHtml : function ( url, destDivId ) {
+	
+		$.get( url, function( data ) {
+			$( destDivId ).html( data );
+			console.log( url + ' data loaded to: ' + destDivId );
+		});
+	},
+	
     hideSiblings: function (obj) {
         $(obj).siblings().fadeOut();
     },
@@ -29,6 +61,7 @@ var app = {
 		$('[' + attr + '="' + val + '"]')
 			.not(obj).each( function() {
 
+			console.log('visible' + $(this).is(":visible"));
 			if ($(this).is(":visible")) {
 				$(this).slideUp("slow");
 			} else {
@@ -41,6 +74,8 @@ var app = {
 
 	divCollapseAll: function(div) {
 
+	console.log('divCollapseAll');
+	
 	    var isFocused = $(div).attr('toggleShowHideAll');
         var isHide = false;
 		var divParent = $(div).parent();
@@ -80,65 +115,47 @@ var app = {
 		$(div).siblings().attr('toggleShowHideAll', false);
 	},
 	
-    tableShowHideAll: function (td) {
-        
-        var isFocused = $(td).attr('toggleShowHideAll');
-        var isHide = false;
-        var $tr = $(td).closest('tr');
-        var $table = $(td).closest('table');
-        var rowIndex = $($tr).index();
-        var colIndex = $(td).index();
-        var rowLen = $($table).find('tr').length;
-        var colLen = $($tr).find('td').length;
+	imgAnimate : function ($div) {
 
-        // flip the status
-        if (isFocused != undefined && isFocused == 'true') {
-            isHide = false;
-        } else {
-            isHide = true;
-        }
+		var $current = $($div).find('img.animate-current').first();
+		var isRewind = $current.hasClass('rewind');
 
-        $(td).attr('toggleShowHideAll', isHide);
-
-	// when hiding, remove the border for a better fade effect
-                if (isHide) {
-                    $($table).find('td').css( 'border','0px solid black' );
-                    $($table).find('th').css( 'border','0px solid black' );
-               }
-
-        // show/hide rows
-        for (var i = 0; i < rowLen; i++) {
-            if (i != rowIndex) {
-                if (isHide) {
-                    $($table).find('tr:eq(' + i + ')').slideUp("slow");
-                } else {
-                    $($table).find('tr:eq(' + i + ')').fadeIn();
-                }
-            }
-        }
-
-        // show/hide cols
-        for (var i = 0; i < colLen; i++) {
-            if (i != colIndex) {
-		var $indexTd = $($tr).find('td:eq(' + i + ')');
-                if (isHide) {
-                	$($indexTd).fadeOut();
-                } else {
-                	$($indexTd).fadeIn();
-                }
-            }
-        }
-
-		// when showing, put the border back
-                if (!isHide) {
-                    $($table).find('td').css( 'border','4px solid white' );
-                    $($table).find('th').css( 'border','4px solid white' );
-                }
-
-        console.log('tableShowHideAll ' + rowIndex + ' - ' + colIndex);
-    }
+		// you are no longer current
+		$($current)	.removeClass('animate-current')
+					.removeClass('rewind')
+					.hide(0);
+		
+		console.log( 'imgAnimate ' + isRewind );
+		
+		if (!isRewind) {
+			var $next = $($current).next();
+			if ( $next.length == 0 ) {
+				$current = $($current).prev();
+				$current.addClass('rewind');
+			} else {
+				$current = $next;
+			}
+		} else {
+			var $previous = $($current).prev();
+			if ( $previous.length == 0 ) {
+				$current = $($current).next();
+			} else {
+				$current = $previous;
+				$current.addClass('rewind');
+			}
+		}
+		
+		$($current).addClass('animate-current').show(0);
+		
+		setTimeout( function() {
+			app.imgAnimate($div);
+		}, 200);
+		
+	}
+	
 }
 
+// =========================================================
 
 var ui = {
 	
@@ -148,6 +165,11 @@ var ui = {
 		{ name : "Races",	url: "race.html" },
 		{ name : "Classes",	url: "class.html" }
 	],
+	
+	buildHeader : function () {
+	
+		// ignore for now
+	},
 	
 	buildNav : function () {
 	
@@ -181,3 +203,11 @@ $(document).ready(function () {
     console.log('ready to go');
     app.init();
 });
+
+
+// ==========================================
+
+var util = {
+	
+	
+}

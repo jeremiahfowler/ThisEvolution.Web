@@ -38,7 +38,7 @@
 
         text-decoration: none;
         color: white;
-        font-size: x-large;
+        font-size: large;
     }
 
         .app-nav-link a:hover {
@@ -74,7 +74,7 @@
 		.div-trinity div div {
 			display: inline-block;
 			padding: 20px;
-			width: 120px;
+			width: 130px;
 			text-align: center;
 			font-size: large;
 			font-weight: bold;
@@ -108,6 +108,10 @@
 
 .highlight {
     border: 4px solid #fff200 !important;
+}
+
+.slide-on-load {
+	display: none;
 }
 
 .text-selection {
