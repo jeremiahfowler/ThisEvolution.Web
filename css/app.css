@@ -64,11 +64,10 @@
 
 .div-trinity {
 	display: inline-block;
-
 }	
 
 	.div-trinity div {
-		
+		font-size: 0;
 	}
 
 		.div-trinity div div {
@@ -81,6 +80,9 @@
 			cursor: pointer;
 			border-top: 4px solid black;
 			border-bottom: 4px solid black;
+			border-left: none;
+			border-right: none;
+			margin: 0px 4px 0px 4px;
 		}
 	
 .table-trinity {
@@ -125,6 +127,10 @@
 	width: 50%;
 }
 
+.three-quarters {
+	width: 75%;
+}
+
 .spacer {
     margin: 20px;
     padding: 20px;
@@ -146,14 +152,14 @@
 
 
 .border-white{	border: 4px solid white; color: white; }
-.border-blue{	border: 4px solid #0000ff; color: black; }
-.border-orange{	border: 4px solid #ff751a; color: black; }
-.border-pink{	border: 4px solid #ff3399; color: black; }
+.border-blue{	border: 4px solid #0000ff; color: white; }
+.border-orange{	border: 4px solid #ff751a; color: white; }
+.border-pink{	border: 4px solid #ff3399; color: white; }
 
-.border-cyan{	border: 4px solid #00ffff; color: black; }
-.border-green{	border: 4px solid #00ff00; color: black; }
-.border-yellow{	border: 4px solid #ffff00; color: black; }
+.border-cyan{	border: 4px solid #00ffff; color: white; }
+.border-green{	border: 4px solid #00ff00; color: white; }
+.border-yellow{	border: 4px solid #ffff00; color: white; }
 
-.border-purple{	border: 4px solid #6600cc; color: black; }
-.border-pinky{	border: 4px solid #ff00ff; color: black; }
-.border-red{	border: 4px solid #ff0000; color: black; }
+.border-purple{	border: 4px solid #6600cc; color: white; }
+.border-pinky{	border: 4px solid #ff00ff; color: white; }
+.border-red{	border: 4px solid #ff0000; color: white; }
