@@ -26,7 +26,7 @@ var playerClass = {
 								.css('display', 'none');
 								
 			// we will place items 3 per row, so create the initial row
-			var rowDiv = $('<div>');
+			var rowDiv = $('<div>').attr('data-row', '1');
 			$(classSpecDiv).append( rowDiv );
 			
 			// add the specializations for the current class type
@@ -34,7 +34,7 @@ var playerClass = {
 				
 				// create a new row for every 3 items
 				if ( ii > 0 && ii % 3 == 0 ) {
-					rowDiv = $('<div>');
+					rowDiv = $('<div>').attr('data-row', '1');
 					$(classSpecDiv).append( rowDiv );
 				}
 				
@@ -49,6 +49,24 @@ var playerClass = {
 			
 			$(specializationDiv).append( classSpecDiv );
 		}
+		
+		// col headers
+		$('#specialization div.div-trinity div[data-row=1]:nth-child(1)')
+			.prepend( $('<div>').html('Front Line').addClass('color-black') );
+		$('#specialization div.div-trinity div[data-row=1]:nth-child(2)')
+			.prepend( $('<div>').html('Support').addClass('color-black') );
+		$('#specialization div.div-trinity div[data-row=1]:nth-child(3)')
+			.prepend( $('<div>').html('Damage').addClass('color-black') );
+			
+		// create header row
+		var $header = $('<div>');
+		$header.append( $('<div>') );
+		$header.append( $('<div>').html('Defense').addClass('color-black') );
+		$header.append( $('<div>').html('Balance').addClass('color-black') );
+		$header.append( $('<div>').html('Offense').addClass('color-black') );
+						
+		// add the header row
+		$('#specialization div.div-trinity').prepend($header);
 	},
 	
 	finish: function() {
