@@ -8,6 +8,52 @@
     <link rel="stylesheet" href="css/app.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/app.js"></script>
+	<script>
+
+	// game
+	var game = ( function gameIIFE()
+	{
+		var arrGameObjects	=	[];
+		var arrUITiles 		=	[];
+
+		function init() {
+			console.log('game init');
+		}
+		
+		this.get = function() {
+			console.log('didit');
+		}
+		
+		init();
+		
+		return {
+			get	:	this.get
+		}
+	}());
+
+	// gameObject
+	var gameObject = ( function gameObjectIIFE()
+	{
+		var id			=	'';
+		var name		=	'';
+		var description	=	'';
+		var type		=	'';
+		
+	}());
+
+	// uiTile
+	var uiTile =( function uiTileIIFE()
+	{
+		var x			= '';
+		var y			= '';
+	}());
+
+	// on ready
+	$(document).ready( function() {
+		game.get();
+	});
+	
+	</script>
 	
 </head>
 <body>
