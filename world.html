@@ -13,9 +13,12 @@
 	// game
 	var game = ( function gameIIFE()
 	{
-		var arrGameObjects	=	[];
-		var arrUITiles 		=	[];
-
+		var uiConfig				= null;
+		var arrUITiles 				= [];
+		var arrEnvironmentObjects	= [];
+		var arrPlayerObjects		= [];
+		var arrEnemyObjects			= [];
+		
 		function init() {
 			console.log('game init');
 		}
@@ -31,6 +34,24 @@
 		}
 	}());
 
+	// uiConfig
+	var uiConfig = ( function uiConfigIIFE()
+	{
+		var background			= '';
+		var rows				= '';
+		var cols				= '';
+		var height				= null;
+		var width				= null;
+	}());
+
+	// uiTile
+	var uiTile = ( function uiTileIIFE()
+	{
+		var id			= '';
+		var x			= '';
+		var y			= '';
+	}());
+
 	// gameObject
 	var gameObject = ( function gameObjectIIFE()
 	{
@@ -39,13 +60,14 @@
 		var description	=	'';
 		var type		=	'';
 		
-	}());
-
-	// uiTile
-	var uiTile =( function uiTileIIFE()
-	{
-		var x			= '';
-		var y			= '';
+		// attributes
+		var life		= null;
+		var energy		= null;
+		var morale		= null;
+		
+		// ui tile - or row col?
+		var row			= null;
+		var col			= null;
 	}());
 
 	// on ready
