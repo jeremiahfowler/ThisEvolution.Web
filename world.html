@@ -8,73 +8,23 @@
     <link rel="stylesheet" href="css/app.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/game.js"></script>
 	<script>
 
-	// game
-	var game = ( function gameIIFE()
-	{
-		var uiConfig				= null;
-		var arrUITiles 				= [];
-		var arrEnvironmentObjects	= [];
-		var arrPlayerObjects		= [];
-		var arrEnemyObjects			= [];
-		
-		function init() {
-			console.log('game init');
-		}
-		
-		this.get = function() {
-			console.log('didit');
-		}
-		
-		init();
-		
-		return {
-			get	:	this.get
-		}
-	}());
-
-	// uiConfig
-	var uiConfig = ( function uiConfigIIFE()
-	{
-		var background			= '';
-		var rows				= '';
-		var cols				= '';
-		var height				= null;
-		var width				= null;
-	}());
-
-	// uiTile
-	var uiTile = ( function uiTileIIFE()
-	{
-		var id			= '';
-		var x			= '';
-		var y			= '';
-	}());
-
-	// gameObject
-	var gameObject = ( function gameObjectIIFE()
-	{
-		var id			=	'';
-		var name		=	'';
-		var description	=	'';
-		var type		=	'';
-		
-		// attributes
-		var life		= null;
-		var energy		= null;
-		var morale		= null;
-		
-		// ui tile - or row col?
-		var row			= null;
-		var col			= null;
-	}());
 
 	// on ready
 	$(document).ready( function() {
-		game.get();
+		game.load();
+		doStuff();
 	});
 	
+	function doStuff() {
+	
+		console.log('i do stuff');
+		
+		
+	}
+		
 	</script>
 	
 </head>
@@ -89,10 +39,6 @@
 
     <div id="content" class="app-content">
 
-		<div class="slide-on-load">
-			<p>
-			</p>
-		</div>
 
     </div>
 
