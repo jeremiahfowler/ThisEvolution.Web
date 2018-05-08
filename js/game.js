@@ -9,8 +9,7 @@
 		var arrEnemyObjects			= [];
 		
 		function init() {
-			
-			console.log('game init');
+			// do the pre-work in here
 			
 		}
 		
@@ -60,32 +59,124 @@
 		}
 	}());
 
-	// uiTile
-	var uiTile = ( function uiTileIIFE()
+	// uiLayer - contains all graphics for reference by other objects
+	var uiLayerFactory = ( function uiLayerIIFE()
 	{
-		var id			= '';
-		var x			= '';
-		var y			= '';
+		function create(props) {
+			
+			var uiLayer = (function () {
+				
+				// private properties
+				var _id				= props['id'];
+				var _name			= props['name'];
+				var _type			= props['type'];
+				var _html			= props['html'];
+				
+				// private methods
+				function getId() { 
+					return _id 
+				};
+				
+				function getHTML() {
+					// draw to the screen
+				};
+				
+				// public
+				return {
+					getId	: getId,
+					getHTML	: getHTML
+				}
+			}());
+			
+			return uiLayer;
+		}
 		
-		var arrLayers		= [];
+		return {
+			create	: create
+		}
+	}());
+	
+	// uiTile
+	var uiTileFactory = ( function uiTileIIFE()
+	{
+		function create(props) {
+			
+			var uiTile = (function () {
+				
+				// private properties
+				var _id				= props['id'];
+				var _x				= props['x'];
+				var _y				= props['y'];
+				var _arrLayers		= props['arrLayers'];
+				
+				// private methods
+				function getId() { 
+					return _id 
+				};
+				
+				function getHTML() {
+					// draw to the screen
+				};
+				
+				// public
+				return {
+					getId	: getId,
+					getHTML	: getHTML
+				}
+			}());
+			
+			return uiTile;
+		}
+		
+		return {
+			create	: create
+		}
 	}());
 
 	// gameObject
-	var gameObject = ( function gameObjectIIFE()
+	var gameObjectFactory = ( function gameObjectIIFE()
 	{
-		var id			=	'';
-		var name		=	'';
-		var description	=	'';
-		var type		=	'';
+		function create(p_id) {
+			
+			var gameObject = (function (props) {
+				
+				// private properties
+				var _id				= props['id'];
+				var _name			= props['name'];
+				var _description	= props['description'];
+				var _type			= props['type'];
+				
+				// attributes
+				var _life			= props['life'];
+				var _energy			= props['energy'];
+				var _morale			= props['morale'];
+				
+				// ui tile - or row col?
+				var _row			= props['row'];
+				var _col			= props['col'];
+				
+				var _arrLayers		= props['arrLayers'];
+
+				// private methods
+				function getId() { 
+					return _id 
+				};
+				
+				function getHTML() {
+					// create a div composed of the layers
+				};
+				
+				// public
+				return {
+					getId : getId
+				}
+			}());
+			
+			return gameObject;
+		}
 		
-		// attributes
-		var life		= null;
-		var energy		= null;
-		var morale		= null;
-		
-		// ui tile - or row col?
-		var row			= null;
-		var col			= null;
-		
-		var arrLayers		= [];
+		return {
+			create	: create
+		}
+
 	}());
