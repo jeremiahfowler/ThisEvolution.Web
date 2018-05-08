@@ -60,7 +60,7 @@
 	}());
 
 	// uiLayer - contains all graphics for reference by other objects
-	var uiLayerFactory = ( function uiLayerIIFE()
+	var uiLayerBuilder = ( function uiLayerIIFE()
 	{
 		function create(props) {
 			
@@ -69,6 +69,7 @@
 				// private properties
 				var _id				= props['id'];
 				var _name			= props['name'];
+				var _description	= props['description'];
 				var _type			= props['type'];
 				var _html			= props['html'];
 				
@@ -97,7 +98,7 @@
 	}());
 	
 	// uiTile
-	var uiTileFactory = ( function uiTileIIFE()
+	var uiTileBuilder = ( function uiTileIIFE()
 	{
 		function create(props) {
 			
@@ -134,7 +135,7 @@
 	}());
 
 	// gameObject
-	var gameObjectFactory = ( function gameObjectIIFE()
+	var gameObjectBuilder = ( function gameObjectIIFE()
 	{
 		function create(p_id) {
 			
