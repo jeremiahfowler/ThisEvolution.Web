@@ -2,11 +2,12 @@
 	// game
 	var game = ( function gameIIFE()
 	{
-		var uiConfig				= null;
-		var arrUITiles 				= [];
-		var arrEnvironmentObjects	= [];
-		var arrPlayerObjects		= [];
-		var arrEnemyObjects			= [];
+		var uiConfig				= null;		// base game configuration
+		var arrUiLayers				= [];		// layers available to game objects
+		var arrUITiles 				= [];		// ui "tiles" for displaying layers
+		var arrEnvironmentObjects	= [];		// game objects pertaining to the environment
+		var arrPlayerObjects		= [];		// game objects controlled by the player
+		var arrEnemyObjects			= [];		// game objects controlled by the app
 		
 		function init() {
 			// do the pre-work in here
@@ -159,17 +160,31 @@
 				var _arrLayers		= props['arrLayers'];
 
 				// private methods
+
+				// public properties
+				var currentState	= {
+					life			: null,
+					energy			: null,
+					morale			: null,
+					direction		: null,		// up, down, left or right
+					action			: null,		// current action depicts the image 
+					arrEffects		: []		// hots, dots, buff and debuffs ( also associated layers )
+				}
+
+				// public methods
 				function getId() { 
 					return _id 
 				};
-				
+
 				function getHTML() {
 					// create a div composed of the layers
 				};
 				
 				// public
 				return {
-					getId : getId
+					getId			: getId,
+					getHTML			: getHTML,
+					currentState	: currentState
 				}
 			}());
 			
@@ -181,3 +196,61 @@
 		}
 
 	}());
+	
+	// gameObjectAction - 
+	var gameObjectActionBuilder = ( function gameObjectActionIIFE()
+	{
+		function create(props) {
+			
+			var gameObjectAction = (function () {
+				
+				// private properties
+				var _id				= props['id'];
+				var _name			= props['name'];
+				var _description	= props['description'];
+				var _type			= props['type'];
+				var _range			= props['html'];
+				
+				// private methods
+				function getId() { 
+					return _id 
+				};
+				
+				function getHTML() {
+					// draw to the screen
+				};
+				
+				// public
+				return {
+					getId	: getId,
+					getHTML	: getHTML
+				}
+			}());
+			
+			return gameObjectAction;
+		}
+		
+		return {
+			create	: create
+		}
+	}());
+
+	// gameHelper
+	var gameHelper = ( function gameHelperIIFE()
+	{
+		var rows				= '';
+		var cols				= '';
+		
+		// distance between two tiles
+		function getDistance(aX, aY, bX, bY) {
+			var diffX = abs( aX - bX ) - 1;
+			var diffY = abs( aY - bY ) - 1;
+			
+			if ( diffX >= diffY ) {
+				return diffX;
+			} else {
+				return diffY
+			}
+		}
+	}());
+
