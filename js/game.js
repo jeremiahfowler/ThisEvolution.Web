@@ -1,8 +1,43 @@
 
+
+	// uiConfig
+	var uiConfig = ( function uiConfigIIFE()
+	{
+		var rows				= '';
+		var cols				= '';
+		var height				= null;
+		var width				= null;
+		var arrLayers			= [];
+		
+		function create() {
+			
+		}
+		
+	}());
+
+	// gameHelper
+	var gameHelper = ( function gameHelperIIFE()
+	{
+		var rows				= '';
+		var cols				= '';
+		
+		// distance between two tiles
+		function getDistance(aX, aY, bX, bY) {
+			var diffX = abs( aX - bX ) - 1;
+			var diffY = abs( aY - bY ) - 1;
+			
+			if ( diffX >= diffY ) {
+				return diffX;
+			} else {
+				return diffY
+			}
+		}
+	}());
+	
 	// game
 	var game = ( function gameIIFE()
 	{
-		var uiConfig				= null;		// base game configuration
+		var uiConfig				= uiConfig;	// base game configuration
 		var arrUiLayers				= [];		// layers available to game objects
 		var arrUITiles 				= [];		// ui "tiles" for displaying layers
 		var arrEnvironmentObjects	= [];		// game objects pertaining to the environment
@@ -42,21 +77,13 @@
 		init();
 		
 		return {
-			load	:	this.load
-		}
-	}());
-
-	// uiConfig
-	var uiConfig = ( function uiConfigIIFE()
-	{
-		var rows				= '';
-		var cols				= '';
-		var height				= null;
-		var width				= null;
-		var arrLayers			= [];
-		
-		function create() {
-			
+			load					: this.load,
+			uiConfig				: uiConfig,
+			arrUiLayers				: arrUiLayers,
+			arrUITiles 				: arrUITiles,
+			arrEnvironmentObjects	: arrEnvironmentObjects,
+			arrPlayerObjects		: arrPlayerObjects,
+			arrEnemyObjects			: arrEnemyObjects
 		}
 	}());
 
@@ -73,6 +100,7 @@
 				var _description	= props['description'];
 				var _type			= props['type'];
 				var _html			= props['html'];
+				var _css			= props['css'];
 				
 				// private methods
 				function getId() { 
@@ -80,7 +108,12 @@
 				};
 				
 				function getHTML() {
-					// draw to the screen
+					// return html element
+					var html = $('<div>')
+								.attr('id', _id)
+								.css(_css)
+								.html(_html);
+					return html;
 				};
 				
 				// public
@@ -158,6 +191,7 @@
 				var _col			= props['col'];
 				
 				var _arrLayers		= props['arrLayers'];
+				var _arrActions		= props['arrActions'];
 
 				// private methods
 
@@ -210,6 +244,7 @@
 				var _description	= props['description'];
 				var _type			= props['type'];
 				var _range			= props['html'];
+				var _arrLayers		= props['arrLayers'];
 				
 				// private methods
 				function getId() { 
@@ -235,22 +270,20 @@
 		}
 	}());
 
-	// gameHelper
-	var gameHelper = ( function gameHelperIIFE()
-	{
-		var rows				= '';
-		var cols				= '';
-		
-		// distance between two tiles
-		function getDistance(aX, aY, bX, bY) {
-			var diffX = abs( aX - bX ) - 1;
-			var diffY = abs( aY - bY ) - 1;
-			
-			if ( diffX >= diffY ) {
-				return diffX;
-			} else {
-				return diffY
-			}
-		}
-	}());
 
+	function loadLayers() {
+		
+		var myLayer = 
+			uiLayerBuilder.create(
+				{
+					id				: 	"",
+					name			: 	"",
+					description		:	"",
+					type			: 	"",
+					html			:	"hi"
+				}
+			);
+			game.arrUiLayers.push(myLayer);
+	}
+	
+	loadLayers();
