@@ -127,8 +127,9 @@
 				
 				// public
 				return {
-					getId	: getId,
-					getHTML	: getHTML
+					id		: _id,
+					getHTML	: getHTML,
+					tags	: _tags
 				}
 			}());
 			
@@ -292,58 +293,44 @@
 				"background-size"	: "contain"
 			};
 		}
-		// create the layers
-		function _create() {
-			
+		// load the layers
+		function _load() {
+
 			var arrLayers = [];
 			var arrUiLayers = [];
 			var imgDir = "img/demo/";
 			var tags = { "class" : "berserker" };
 
-			//					id			name	description	type	tags	html	css
-			arrLayers.push( [	"1",		"",		"",			"",		tags,	"",		_cssImage(imgDir + "battle.png") ] );
-			arrLayers.push( [	"2",		"",		"",			"",		tags,	"",		_cssImage(imgDir + "berserker_ready.png") ] );
-			arrLayers.push( [	"3",		"",		"",			"",		tags,	"",		_cssImage(imgDir + "berserker_run.png") ] );
-			
-			//arrLayers.push( { id : "", name : "", description : "", type : "", html : "", css : _cssImage(imgDir + "") } );
+			//					name	description	type	tags					html	css
+			arrLayers.push( [	"",		"",			"",		"berserker|ready",		"",		_cssImage(imgDir + "battle.berserker_ready") ] );
+			arrLayers.push( [	"",		"",			"",		"berserker|run",		"",		_cssImage(imgDir + "berserker_run.gif") ] );
+			arrLayers.push( [	"",		"",			"",		"berserker|rage",		"",		_cssImage(imgDir + "berserker_rage.png") ] );
+			arrLayers.push( [	"",		"",			"",		"troll|ready",			"",		_cssImage(imgDir + "Troll_ready.gif") ] );
+			arrLayers.push( [	"",		"",			"",		"troll|rage",			"",		_cssImage(imgDir + "Troll_Scared.gif") ] );
+			arrLayers.push( [	"",		"",			"",		"troll|damaged|high",	"",		_cssImage(imgDir + "Troll_DamagedHigh.gif") ] );
 
 			for ( var i = 0; i < arrLayers.length; i++ ) {
 				console.log(JSON.stringify(arrLayers));
 				var iLayer = arrLayers[i];
 				arrUiLayers.push( 
 					uiLayerBuilder.build( { 
-						id			: iLayer[0], 
-						name		: iLayer[1], 
-						description	: iLayer[2],
-						type		: iLayer[3],
-						tags		: iLayer[4],
-						html		: iLayer[5],
-						css			: iLayer[6]
+						id			: i, 
+						name		: iLayer[0], 
+						description	: iLayer[1],
+						type		: iLayer[2],
+						tags		: iLayer[3],
+						html		: iLayer[4],
+						css			: iLayer[5]
 					} )
 				);
 			}
 			
 			return arrUiLayers;
 		}
-		
+
 		return {
-			create : _create
+			load : _load
 		}
 	}());
 
-	function loadLayers() {
-
-		var myLayer = 
-			uiLayerBuilder.build(
-				{
-					id				: 	"",
-					name			: 	"",
-					description		:	"",
-					type			: 	"",
-					html			:	"hi"
-				}
-			);
-			game.arrUiLayers.push(myLayer);
-	}
-	
-	loadLayers();
+	uiLayerLoader.load();
