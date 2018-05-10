@@ -3,14 +3,18 @@
 	// uiConfig
 	var uiConfig = ( function uiConfigIIFE()
 	{
-		var rows				= '';
-		var cols				= '';
-		var height				= null;
-		var width				= null;
-		var arrLayers			= [];
+		// private properties
+		var _rows				= '';
+		var _cols				= '';
+		var _height				= null;
+		var _width				= null;
 		
-		function create() {
-			
+		// public
+		return {
+			rows		: _rows,
+			cols		: _cols,
+			height		: _height,
+			width		: _width
 		}
 		
 	}());
@@ -18,11 +22,9 @@
 	// gameHelper
 	var gameHelper = ( function gameHelperIIFE()
 	{
-		var rows				= '';
-		var cols				= '';
 		
 		// distance between two tiles
-		function getDistance(aX, aY, bX, bY) {
+		function _getDistance(aX, aY, bX, bY) {
 			var diffX = abs( aX - bX ) - 1;
 			var diffY = abs( aY - bY ) - 1;
 			
@@ -32,24 +34,28 @@
 				return diffY
 			}
 		}
+		
+		return {
+			getDistance : _getDistance
+		}
 	}());
 	
 	// game
 	var game = ( function gameIIFE()
 	{
-		var uiConfig				= uiConfig;	// base game configuration
-		var arrUiLayers				= [];		// layers available to game objects
-		var arrUITiles 				= [];		// ui "tiles" for displaying layers
-		var arrEnvironmentObjects	= [];		// game objects pertaining to the environment
-		var arrPlayerObjects		= [];		// game objects controlled by the player
-		var arrEnemyObjects			= [];		// game objects controlled by the app
+		var _uiConfig				= uiConfig;	// base game configuration
+		var _arrUiLayers			= [];		// layers available to game objects
+		var _arrUITiles 			= [];		// ui "tiles" for displaying layers
+		var _arrEnvironmentObjects	= [];		// game objects pertaining to the environment
+		var _arrPlayerObjects		= [];		// game objects controlled by the player
+		var _arrEnemyObjects		= [];		// game objects controlled by the app
 		
-		function init() {
+		function _init() {
 			// do the pre-work in here
 			
 		}
 		
-		this.load = function() {
+		function _load() {
 			var $divContent = $('#content');
 			var $divGrid = $('<div>')
 							.attr('id', 'gameGrid')
@@ -74,23 +80,23 @@
 			$divContent.append($divGrid);
 		}
 		
-		init();
+		_init();
 		
 		return {
-			load					: this.load,
-			uiConfig				: uiConfig,
-			arrUiLayers				: arrUiLayers,
-			arrUITiles 				: arrUITiles,
-			arrEnvironmentObjects	: arrEnvironmentObjects,
-			arrPlayerObjects		: arrPlayerObjects,
-			arrEnemyObjects			: arrEnemyObjects
+			load					: _load,
+			uiConfig				: _uiConfig,
+			arrUiLayers				: _arrUiLayers,
+			arrUITiles 				: _arrUITiles,
+			arrEnvironmentObjects	: _arrEnvironmentObjects,
+			arrPlayerObjects		: _arrPlayerObjects,
+			arrEnemyObjects			: _arrEnemyObjects
 		}
 	}());
 
 	// uiLayer - contains all graphics for reference by other objects
 	var uiLayerBuilder = ( function uiLayerIIFE()
 	{
-		function create(props) {
+		function build(props) {
 			
 			var uiLayer = (function () {
 				
@@ -101,6 +107,7 @@
 				var _type			= props['type'];
 				var _html			= props['html'];
 				var _css			= props['css'];
+				var _tags			= props['tags'];
 				
 				// private methods
 				function getId() { 
@@ -108,6 +115,8 @@
 				};
 				
 				function getHTML() {
+					
+					console.log('_id: ' + _id + ' / _css: ' + JSON.stringify(_css) + ' / _html: ' + _html);
 					// return html element
 					var html = $('<div>')
 								.attr('id', _id)
@@ -127,14 +136,14 @@
 		}
 		
 		return {
-			create	: create
+			build	: build
 		}
 	}());
 	
 	// uiTile
 	var uiTileBuilder = ( function uiTileIIFE()
 	{
-		function create(props) {
+		function build(props) {
 			
 			var uiTile = (function () {
 				
@@ -164,14 +173,14 @@
 		}
 		
 		return {
-			create	: create
+			build	: build
 		}
 	}());
 
 	// gameObject
 	var gameObjectBuilder = ( function gameObjectIIFE()
 	{
-		function create(p_id) {
+		function build(p_id) {
 			
 			var gameObject = (function (props) {
 				
@@ -226,7 +235,7 @@
 		}
 		
 		return {
-			create	: create
+			build	: build
 		}
 
 	}());
@@ -234,7 +243,7 @@
 	// gameObjectAction - 
 	var gameObjectActionBuilder = ( function gameObjectActionIIFE()
 	{
-		function create(props) {
+		function build(props) {
 			
 			var gameObjectAction = (function () {
 				
@@ -266,15 +275,66 @@
 		}
 		
 		return {
-			create	: create
+			build	: build
 		}
 	}());
 
+	// uiLayerLoader
+	var uiLayerLoader = ( function gameHelperIIFE()
+	{
+		// private properties
+
+		function _cssImage(imgPath) {
+			return {  
+				"display"			: "inline-block",
+				"background-image"	: "url(" + imgPath + ")",
+				"background-repeat" : "no-repeat",
+				"background-size"	: "contain"
+			};
+		}
+		// create the layers
+		function _create() {
+			
+			var arrLayers = [];
+			var arrUiLayers = [];
+			var imgDir = "img/demo/";
+			var tags = { "class" : "berserker" };
+
+			//					id			name	description	type	tags	html	css
+			arrLayers.push( [	"1",		"",		"",			"",		tags,	"",		_cssImage(imgDir + "battle.png") ] );
+			arrLayers.push( [	"2",		"",		"",			"",		tags,	"",		_cssImage(imgDir + "berserker_ready.png") ] );
+			arrLayers.push( [	"3",		"",		"",			"",		tags,	"",		_cssImage(imgDir + "berserker_run.png") ] );
+			
+			//arrLayers.push( { id : "", name : "", description : "", type : "", html : "", css : _cssImage(imgDir + "") } );
+
+			for ( var i = 0; i < arrLayers.length; i++ ) {
+				console.log(JSON.stringify(arrLayers));
+				var iLayer = arrLayers[i];
+				arrUiLayers.push( 
+					uiLayerBuilder.build( { 
+						id			: iLayer[0], 
+						name		: iLayer[1], 
+						description	: iLayer[2],
+						type		: iLayer[3],
+						tags		: iLayer[4],
+						html		: iLayer[5],
+						css			: iLayer[6]
+					} )
+				);
+			}
+			
+			return arrUiLayers;
+		}
+		
+		return {
+			create : _create
+		}
+	}());
 
 	function loadLayers() {
-		
+
 		var myLayer = 
-			uiLayerBuilder.create(
+			uiLayerBuilder.build(
 				{
 					id				: 	"",
 					name			: 	"",
