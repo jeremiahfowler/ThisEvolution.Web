@@ -22,7 +22,7 @@
     background-color: black;
     padding: 10px;
     display: inline-block;
-    width: 160px;
+    width: 130px;
 }
 
 .app-nav-link {
@@ -32,7 +32,7 @@
 
     .app-nav-link a {
         display: inline-block;
-        width: 112px;
+        width: 82px;
         height: 100%;
 		padding: 10px;
 
@@ -87,7 +87,6 @@
 			border-bottom: 4px solid black;
 			border-left: none;
 			border-right: none;
-			border-radius: 20px;
 		}
 	
 .table-trinity {
@@ -163,6 +162,10 @@
     padding: 20px;
 }
 
+.spacer-small {
+    margin: 5x;
+    padding: 5px;
+}
 
 .color-black{	background-color: black; color: white; }
 .color-blue{	background-color: #0000ff; color: black; }
