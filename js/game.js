@@ -280,6 +280,68 @@
 		}
 	}());
 
+		// uiLayerLoader
+	var gameObjectLoader = ( function gameObjectLoaderIIFE()
+	{
+		// private properties
+
+		function _cssImage(imgPath) {
+			return {  
+				"display"			: "inline-block",
+				"background-image"	: "url(" + imgPath + ")",
+				"background-repeat" : "no-repeat",
+				"background-size"	: "contain"
+			};
+		}
+		// load the layers
+		function _load() {
+
+			var arrGameItems = [];
+			var arrActions = [];
+			var arrGameObjects = [];
+			var tags = { "class" : "berserker" };
+
+			//					name			description	type	life	energy	morale
+			arrGameItems.push( [ "berserker",	"",			"",		100,	100,	100 ] );
+			arrGameItems.push( [ "orc",			"",			"",		100,	100,	100 ] );
+			//arrGameItems.push( [ "",		"",			"",		100,	100,	100 ] );
+			//arrGameItems.push( [ "",		"",			"",		100,	100,	100 ] );
+			//arrGameItems.push( [ "",		"",			"",		100,	100,	100 ] );
+			//arrGameItems.push( [ "",		"",			"",		100,	100,	100 ] );
+
+			// Range - 0 = Melee
+			//					name		description	type	range	arrLayers
+			arrActions.push( [	"Attack",	"",			"",		0,		"" ] );
+			arrActions.push( [	"Defend",	"",			"",		0,		"" ] );
+			arrActions.push( [	"Move",		"",			"",		3,		"" ] );
+			//arrActions.push( [	"",		"",			"",		0,		"" ] );
+			//arrActions.push( [	"",		"",			"",		0,		"" ] );
+			
+			
+			for ( var i = 0; i < arrGameItems.length; i++ ) {
+				console.log(JSON.stringify(arrGameItems[i]));
+				var iGameObj = arrGameItems[i];
+				arrGameObjects.push( 
+					iGameObj.build( { 
+						id			: i, 
+						name		: iGameObj[0], 
+						description	: iGameObj[1],
+						type		: iGameObj[2],
+						life		: iGameObj[3],
+						energy		: iGameObj[4],
+						morale		: iGameObj[5]
+					} )
+				);
+			}
+			
+			return arrUiLayers;
+		}
+
+		return {
+			load : _load
+		}
+	}());
+	
 	// uiLayerLoader
 	var uiLayerLoader = ( function gameHelperIIFE()
 	{
@@ -310,7 +372,7 @@
 			arrLayers.push( [	"",		"",			"",		"troll|damaged|high",	"",		_cssImage(imgDir + "Troll_DamagedHigh.gif") ] );
 
 			for ( var i = 0; i < arrLayers.length; i++ ) {
-				console.log(JSON.stringify(arrLayers));
+				console.log(JSON.stringify(arrLayers[i]));
 				var iLayer = arrLayers[i];
 				arrUiLayers.push( 
 					uiLayerBuilder.build( { 
